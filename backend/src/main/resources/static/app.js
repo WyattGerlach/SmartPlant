@@ -1,3 +1,28 @@
+function formatTime(iso) {
+  if (!iso) return 'never';
+  try {
+    const d = new Date(iso);
+    if (isNaN(d)) return iso;
+    const locale = navigator.language || 'en-US';
+    const abs = d.toLocaleString(locale);
+    // relative time
+    const diff = Date.now() - d.getTime();
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    let rel = '';
+    if (seconds < 10) rel = 'just now';
+    else if (seconds < 60) rel = `${seconds}s ago`;
+    else if (minutes < 60) rel = `${minutes}m ago`;
+    else if (hours < 24) rel = `${hours}h ago`;
+    else rel = `${days}d ago`;
+    return `${abs} (${rel})`;
+  } catch (e) {
+    return iso;
+  }
+}
+
 async function listPlants(){
   const res = await fetch('/api/plants');
   const plants = await res.json();
@@ -9,7 +34,7 @@ async function listPlants(){
     div.innerHTML = `<strong>${p.name}</strong> <small>${p.species || ''}</small>
       <div>Pot: ${p.potVolumeLiters || ''} L</div>
       <div>Soil: ${p.soilType || ''}</div>
-      <div>Last watered: ${p.lastWateredAt || 'never'}</div>
+      <div>Last watered: ${formatTime(p.lastWateredAt)}</div>
       <div>Total water: ${p.totalWateredMl || 0} ml</div>
       <div><input type="number" placeholder="ml" class="water-input" /> <button class="water-btn">Water</button></div>
     `;
