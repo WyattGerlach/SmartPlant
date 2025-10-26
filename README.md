@@ -43,14 +43,14 @@ This repo uses MongoDB for the backend. If MongoDB isn’t installed locally, th
 ### Option 1: Docker (recommended)
 
 1. Start MongoDB:
-   - `docker compose up -d` (or `docker-compose up -d`)
+   - `docker compose up -d` (or `docker-compose up -d`) from project root
 2. Point Spring Boot to it (either method works):
    - Env var for current shell:
      - PowerShell: `$env:SPRING_DATA_MONGODB_URI = "mongodb://localhost:27017/smartplant"`
      - Bash: `export SPRING_DATA_MONGODB_URI="mongodb://localhost:27017/smartplant"`
    - Or set in `backend/src/main/resources/application.properties`:
      - `spring.data.mongodb.uri=mongodb://localhost:27017/smartplant`
-3. Run the backend as usual.
+3. Run the backend as usual. To do this, change directory to \backend and then run: ./mvnw spring-boot:run
 
 To verify MongoDB is reachable: `Test-NetConnection -ComputerName localhost -Port 27017` (PowerShell) or `nc -zv localhost 27017`.
 
