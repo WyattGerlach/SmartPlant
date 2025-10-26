@@ -2,7 +2,7 @@ package com.smartplant.backend.controller;
 
 import com.smartplant.backend.dto.PlantDto;
 import com.smartplant.backend.dto.WateringDto;
-import com.smartplant.backend.service.PlantService;
+import com.smartplant.backend.service.PlantServiceApi;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +12,9 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/api/plants")
 public class PlantController {
-    private final PlantService plantService;
+    private final PlantServiceApi plantService;
 
-    public PlantController(PlantService plantService) {
+    public PlantController(PlantServiceApi plantService) {
         this.plantService = plantService;
     }
 
@@ -30,12 +30,12 @@ public class PlantController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PlantDto> get(@PathVariable Long id) {
+    public ResponseEntity<PlantDto> get(@PathVariable String id) {
         return plantService.getPlant(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/{id}/water")
-    public ResponseEntity<PlantDto> water(@PathVariable Long id, @RequestBody WateringDto w) {
+    public ResponseEntity<PlantDto> water(@PathVariable String id, @RequestBody WateringDto w) {
         return plantService.recordWatering(id, w).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 

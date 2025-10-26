@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: smartplant-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      # Optional: initialize a default database name for convenience
+      - MONGO_INITDB_DATABASE=smartplant
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+    driver: local
+

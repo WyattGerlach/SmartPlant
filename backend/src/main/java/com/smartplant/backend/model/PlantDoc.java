@@ -1,8 +1,13 @@
-package com.smartplant.backend.dto;
+package com.smartplant.backend.model;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
 
-public class PlantDto {
+@Document(collection = "plants")
+public class PlantDoc {
+    @Id
     private String id;
     private String name;
     private String species;
@@ -10,9 +15,9 @@ public class PlantDto {
     private String soilType;
     private Instant createdAt;
     private Instant lastWateredAt;
-    private long totalWateredMl = 0L;
+    private long totalWateredMl;
 
-    public PlantDto() {}
+    public PlantDoc() {}
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
@@ -38,3 +43,4 @@ public class PlantDto {
     public long getTotalWateredMl() { return totalWateredMl; }
     public void setTotalWateredMl(long totalWateredMl) { this.totalWateredMl = totalWateredMl; }
 }
+
