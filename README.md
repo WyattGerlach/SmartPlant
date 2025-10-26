@@ -81,7 +81,10 @@ Prereqs:
 - Docker Desktop installed and running.
 - Java 17+ (the project targets Java 17).
 
-## Testing
+## Testing with mongo
+
+1. Must do this first: `$env:SPRING_PROFILES_ACTIVE = 'mongo'`
+2. Then `.\mvnw.cmd spring-boot:run` from backend
 
 - Add an entry to plants using the web app (port 8080)
 - run command `curl http://localhost:8080/api/plants` in powershell (or your equivalent for your terminal)
