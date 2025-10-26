@@ -85,3 +85,12 @@ Prereqs:
 
 - Add an entry to plants using the web app (port 8080)
 - run command `curl http://localhost:8080/api/plants` in powershell (or your equivalent for your terminal)
+
+## Testing with docker exec
+
+1. run `docker exec -it container-IDFromDockerDesktop mongosh`
+2. `show dbs (lists all dbs, interested in smartplant)`
+3. `use smartplant`
+4. `show collections`
+5. `db.getCollection('watering_events').countDocuments()`
+6. Can also try `db.getCollection('watering_events').find().pretty()`
